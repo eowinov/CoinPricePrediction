@@ -21,7 +21,7 @@ The input data for the model trainig is the opening price, the high and the low 
 
 After successful model training the webapp should be able to take further input values for the prediction:
 - coin symbol or list of coin symbols (e.g. BTC or BTC;ETH for Bitcoin and Ethereum, the symbols should be part of the data processing step)
-- datetime or list of datetimes (e.g. 2021-11-01 07;2021-11-01 07 for prediction the closing values for 7 and 8 am on 01.Nov.2021)
+- datetime or list of datetimes (e.g. 2021-11-01 14;2021-11-01 18 for prediction the closing values for 2 and 6 pm on 01.Nov.2021)
 
 ![grafik](https://user-images.githubusercontent.com/91085353/142240160-5afe6a04-13b8-4f05-81cd-ab16e3b51bdd.png)
 
@@ -74,7 +74,7 @@ As a model I tried out a pipeline consisting of a StandardScaler combined with L
 ## Results
 
 After implementing all scripts we have a functioning webapp that is able to process input parameters and predict the closing price for a given timestamp and a given coin.
-![grafik](https://user-images.githubusercontent.com/91085353/142240934-6df0040c-cede-41b6-8bd3-81c28d3a0947.png)
+![grafik](https://user-images.githubusercontent.com/91085353/142241370-5a4be189-d1aa-4068-abeb-6e4764808188.png)
 
 ### Model Evaluation and Validation
 While building the model, I was experimenting with different Regressors and also used GridSearch to find better parameters for the MLP Regressor and the Decision Tree Regressor. However, none of these approaches reached better metric than using simple Linear Regression in this case. Predicting the ETH Coin Linear Regression showed a mean deviation from acutual value of .78%, while the MLP Regressor reached 1.1% after using GridSearch to find better parameters. Experimenting with the Decision Tree Regressor, I saw that we can reach a mean deviation from actual value of .89%, which comes close to the Linear Regression. But comparing the mean squared error, root mean squared error and the mean absolute error, we can see that these values are higher which is an indicator for a less safe forecast.
