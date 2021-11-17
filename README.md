@@ -4,7 +4,7 @@
 In the last few years the importance of crypto currency has increased rapidly. Especially the last past month we saw Bitcoin, Ethereum and other currencies reaching their all time highs. More and more people are entering the market and the number of coins and platforms for trading these currencies are growing every day. Due to a huge personal interest in this field, I decided to dedicate my Capstone Project to this topic. This current project uses crypto currency data and builds a ML model, that predicts the closing price for a particular time period via webapp.  
 
 ### Data 
-As a data source I use the API of Coinbase (see Acknowledgement down below), which delivers the    
+As a data source I use the API of Coinbase (see Acknowledgement down below), which delivers the prices of several crypto coins on given time and granularity.   
 
 ### Problem Statement
 The aim of this project was to build a webapp that takes several input parameters and delivers data from the Coinbase API by using hourly granularity, stores the data in a Sqlite Database as well as a csv.-file. After getting the data from the data source a prediction model is trained and saved as a pickle file. This model is then used to predict the closing values for certain datetime values. The input parameters for pulling the data and training the model are the following:
@@ -34,11 +34,11 @@ In this particular project the data analysis conducted on the input data was exe
 ### Data Exploration
 The dataset used in the prediction model is being fetched every time a user uses the webapp and runs the data query and model training part with its own input parameters. Independent of the user input these following features are pulled by the API request:
 - unix: can be interpreted as datetime 
-- low, the lowest price in this particular time period
-- high, the highest price in this particular time period
-- open, the opening price in this particular time period
-- close, the closing price in this particular time period
-- volume, the traded volume in this particular time period 
+- low: the lowest price in this particular time period
+- high: the highest price in this particular time period
+- open: the opening price in this particular time period
+- close: the closing price in this particular time period
+- volume: the traded volume in this particular time period 
 
 The column to be predicted by the model is 'close'. The columns 'unix', 'open' and 'volume' are used as the features for the training model.
 The exploratory part of this section is stored in the Jupyter Notebook 'CoinPricePrediction.ipynb'.
@@ -123,6 +123,6 @@ The Jupyter Notebook 'CoinPricePrediction.ipynb' itself is stored in the main fo
 
 
 ## Acknowledgements
-1. [Coinbase](https://www.coinbase.com/) for providing the data set for this project
+1. [Coinbase](https://www.coinbase.com/) for providing an API that can be used for this project
 2. [Udacity](https://www.udacity.com/) for teaching so much about data science and providing the chance to build a project of my own interest 
 
