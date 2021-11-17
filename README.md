@@ -13,6 +13,8 @@ The aim of this project was to build a webapp that takes several input parameter
 - start date for model training (date, e.g. 2017-01-01, to define the minimum day the dataset should contain)
 - end date for model training (date, e.g. 2021-10-15, to define the maximum date for the model training process)
 
+![grafik](https://user-images.githubusercontent.com/91085353/142240071-866aee48-873f-4941-a3fa-c1b209e5d6ba.png)
+
 The API request gets the data from the defined start date until the current date (today). The "end date for model training" input parameter is used to limit the dataset used for training and testing. The reason of doing so is that we want to be able to predict the value for dates that are in the "future" referred to the dates in the training data.
 
 The input data for the model trainig is the opening price, the high and the low of the particular time period (hour, because we have hourly granularity here).
@@ -20,6 +22,8 @@ The input data for the model trainig is the opening price, the high and the low 
 After successful model training the webapp should be able to take further input values for the prediction:
 - coin symbol or list of coin symbols (e.g. BTC or BTC;ETH for Bitcoin and Ethereum, the symbols should be part of the data processing step)
 - datetime or list of datetimes (e.g. 2021-11-01 07;2021-11-01 07 for prediction the closing values for 7 and 8 am on 01.Nov.2021)
+
+![grafik](https://user-images.githubusercontent.com/91085353/142240160-5afe6a04-13b8-4f05-81cd-ab16e3b51bdd.png)
 
 The predicted values should be displayed in the webapp.
 
@@ -40,6 +44,9 @@ The dataset used in the prediction model is being fetched every time a user uses
 - close: the closing price in this particular time period
 - volume: the traded volume in this particular time period 
 
+![grafik](https://user-images.githubusercontent.com/91085353/142239439-19889a16-3696-4184-ab92-1147efbbb659.png)
+
+
 The column to be predicted by the model is 'close'. The columns 'unix', 'open' and 'volume' are used as the features for the training model.
 The exploratory part of this section is stored in the Jupyter Notebook 'CoinPricePrediction.ipynb'.
 
@@ -54,7 +61,10 @@ A complex data preprocessing is not neccessary in this project. The data pulled 
 ### Implementation and Refinement
 First of all, I implemented functions that can be used to access the Coinbase API and pull data on given coin, currency, start date and end date. Having the interface set up, I built the base structure of the webapp. I included some input fields and implemented a function that is executed after clicking a particular button, which pulls data and stores the data in a sqlite database. I wrapped all the data processing code into a Python script, so that it can be called by other scripts like the run.py that is running the webapp.
 
-Moreover I added some visualizations of the crypto currency price, that is displayed on the main page after the data processing and model training is done.
+Moreover I added a visualization of the crypto currency price, that is displayed on the main page after the data processing and model training is done.
+
+![grafik](https://user-images.githubusercontent.com/91085353/142239589-737ace8b-00c7-4816-8e01-80cf48d30e65.png)
+
 
 For the modeling part I implemented another script, that is also called by the run.py app script. The modeling scripts reads in the requested data from the database and builds a model by using the input parameters for the time period given by the user. 
 
@@ -63,8 +73,14 @@ As a model I tried out a pipeline consisting of a StandardScaler combined with L
 
 ## Results
 
+After implementing all scripts we have a functioning webapp that is able to process input parameters and predict the closing price for a given timestamp and a given coin.
+![grafik](https://user-images.githubusercontent.com/91085353/142240934-6df0040c-cede-41b6-8bd3-81c28d3a0947.png)
+
 ### Model Evaluation and Validation
 While building the model, I was experimenting with different Regressors and also used GridSearch to find better parameters for the MLP Regressor and the Decision Tree Regressor. However, none of these approaches reached better metric than using simple Linear Regression in this case. Predicting the ETH Coin Linear Regression showed a mean deviation from acutual value of .78%, while the MLP Regressor reached 1.1% after using GridSearch to find better parameters. Experimenting with the Decision Tree Regressor, I saw that we can reach a mean deviation from actual value of .89%, which comes close to the Linear Regression. But comparing the mean squared error, root mean squared error and the mean absolute error, we can see that these values are higher which is an indicator for a less safe forecast.
+
+![grafik](https://user-images.githubusercontent.com/91085353/142239908-09eb968c-16b9-49f2-8798-18c7b8678202.png)
+
 
 ### Justification
 In the model evaluation part above we saw that in this particular case Linear Regression turned out to be the technique that delivered the best metics. The model uses very few features one of which correlated with the prediction column in a very strong way. Testing the same with another coin (Bitcoin in this case) showed the same results. Again Linear Regression reached the best metrics (for details metric values, see the 'CoinPricePrediction.ipynb' Jupyter Notebook).
