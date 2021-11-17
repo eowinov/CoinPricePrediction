@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block title %}Results{% endblock %}
+
+{% block message2 %}
+    <hr />
+    <h3 class="text-center">Prediction Results</h3>
+{% endblock %}
+
+{% block content2 %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Coin</th>
+            <th scope="col">Datetime</th>
+            <th scope="col">Predicted Value</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for coin, result in results.items() %}
+                {% for d,r in result.items() %}
+                    <tr>
+                        <td>{{coin}}</td>
+                        <td>{{d}}</td>
+                        <td>{{r}}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}  
+        </tbody>
+      </table>
+    </div>
+
+{% endblock %}
